@@ -33,8 +33,8 @@ class _MyAppState extends State<MyApp> {
     true;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: splashscreen()
-       home: authentication(),
+      home: splashscreen()
+      //  home: authentication(),
       // home: mappage(),
     );
   }

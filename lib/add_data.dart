@@ -69,7 +69,7 @@ class _mainhomeState extends State<mainhome> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter Crop name",
+                      hintText: "فصل کا نام درج کریں۔",
                     ),
                   ),
                 ),
@@ -84,7 +84,7 @@ class _mainhomeState extends State<mainhome> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter Crop Image",
+                      hintText: "کراپ امیج درج کریں۔",
                     ),
                   ),
                 ),
@@ -99,7 +99,7 @@ class _mainhomeState extends State<mainhome> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter Temperature",
+                      hintText: "درجہ حرارت درج کریں۔",
                     ),
                   ),
                 ),
@@ -114,7 +114,7 @@ class _mainhomeState extends State<mainhome> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter PH",
+                      hintText: "PH درج کریں۔",
                     ),
                   ),
                 ),
@@ -129,7 +129,7 @@ class _mainhomeState extends State<mainhome> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter humidity",
+                      hintText: "نمی درج کریں۔",
                     ),
                   ),
                 ),
@@ -144,7 +144,7 @@ class _mainhomeState extends State<mainhome> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter Nitrogen level",
+                      hintText: "نائٹروجن کی سطح درج کریں۔",
                     ),
                   ),
                 ),
@@ -159,7 +159,7 @@ class _mainhomeState extends State<mainhome> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter water quantity",
+                      hintText: "پانی کی مقدار درج کریں۔",
                     ),
                   ),
                 ),
@@ -188,7 +188,7 @@ class _mainhomeState extends State<mainhome> {
                   );
                 },
                 child: const Text(
-                  "Insert Data",
+                  "Insert Data / ڈیٹا داخل کریں۔",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -201,7 +201,7 @@ class _mainhomeState extends State<mainhome> {
                       borderRadius: BorderRadius.circular(30),
                       side: const BorderSide(
                         width: 0.1,
-                        color: Colors.brown,
+                        color: Colors.green,
                       ),
                     ),
                   ),

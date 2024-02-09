@@ -51,15 +51,15 @@ class _queryState extends State<query> {
     if (issuecontroller.text.isEmpty ||
         descriptioncontroller.text.isEmpty ||
         feedbackcontroller.text.isEmpty) {
-      print("Please fill in all fields");
+      print("براہ کرم تمام فیلڈز کو پُر کریں۔");
       return;
     }
 
     try {
       await clients.add({
-        'issue': issuecontroller.text,
-        'descript': descriptioncontroller.text,
-        'feedback': feedbackcontroller.text,
+        'issue / مسئلہ': issuecontroller.text,
+        'description / تفصیل': descriptioncontroller.text,
+        'feedback / رائے': feedbackcontroller.text,
       });
 
       // Clear text controllers after successful submission
@@ -68,10 +68,10 @@ class _queryState extends State<query> {
       feedbackcontroller.text = "";
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Feedback form submitted")),
+        const SnackBar(content: Text("فیڈ بیک فارم جمع کرایا گیا۔")),
       );
     } catch (error) {
-      print("Error: $error");
+      print("Error / خرابی: $error");
     }
   }
 
@@ -79,7 +79,7 @@ class _queryState extends State<query> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sensor based project'),
+        title: Text('سینسر پر مبنی پروجیکٹ'),
         backgroundColor: Colors.blue,
       ),
       backgroundColor: Colors.red,
@@ -88,7 +88,7 @@ class _queryState extends State<query> {
           child: Column(children: [
             SizedBox(height: 10),
             const Text(
-              'Feedback Form',
+              'فیڈ بیک فارم',
               style: TextStyle(
                   color: Colors.white,
                   fontStyle: FontStyle.italic,
@@ -106,7 +106,7 @@ class _queryState extends State<query> {
             //
             SizedBox(height: 15),
             Text(
-              "1) Do you have any issues?",
+              "1) کیا آپ کو کوئی مسئلہ ہے؟",
               style: TextStyle(
                   color: Colors.white,
                   fontStyle: FontStyle.italic,
@@ -118,14 +118,14 @@ class _queryState extends State<query> {
               controller: issuecontroller,
               obscureText: false,
               decoration: const InputDecoration(
-                  hintText: "yes/no",
+                  hintText: "yes/no / ہاں/نہیں",
                   hoverColor: Colors.blueGrey,
                   prefixIcon: Icon(Icons.report_problem_outlined),
                   prefixIconColor: Colors.black),
             ),
             SizedBox(height: 3),
             Text(
-              "2) Description Of queries?",
+              "2) سوالات کی تفصیل؟",
               style: TextStyle(
                   color: Colors.white,
                   fontStyle: FontStyle.italic,
@@ -136,14 +136,14 @@ class _queryState extends State<query> {
               controller: descriptioncontroller,
               obscureText: false,
               decoration: const InputDecoration(
-                  hintText: "description ",
+                  hintText: "description / تفصیل ",
                   hintMaxLines: 3,
                   prefixIcon: Icon(Icons.question_answer_outlined),
                   prefixIconColor: Colors.black),
             ),
             SizedBox(height: 3),
             Text(
-              "3) Give any solution or feedback?",
+              "3) کوئی حل یا رائے دیں؟",
               style: TextStyle(
                   color: Colors.white,
                   fontStyle: FontStyle.italic,
@@ -154,7 +154,7 @@ class _queryState extends State<query> {
               controller: feedbackcontroller,
               obscureText: false,
               decoration: const InputDecoration(
-                  hintText: "feedback",
+                  hintText: "feedback / رائے",
                   hintMaxLines: 3,
                   prefixIcon: Icon(Icons.info),
                   prefixIconColor: Colors.black),
@@ -172,7 +172,7 @@ class _queryState extends State<query> {
                 onPressed: () {
                   submit();
                 },
-                child: Text("Submit"),
+                child: Text("Submit / جمع کرائیں"),
               ),
             ),
             SizedBox(
@@ -183,7 +183,7 @@ class _queryState extends State<query> {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => authentication()));
                 },
-                child: Text("Back"))
+                child: Text("Back / پیچھے"))
             // splashColor: Colors.p
           ])),
     );

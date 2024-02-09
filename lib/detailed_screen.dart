@@ -36,7 +36,7 @@ class _DetailScreenState extends State<DetailScreen> {
         children: [
           Container(
             decoration: const BoxDecoration(color: Colors.brown),
-            padding: const EdgeInsets.only(top: 40, bottom: 20),
+            padding: const EdgeInsets.only(top: 20, bottom: 20),
             child: const Center(
               child: Text(
                 "CROP 2X",
@@ -48,7 +48,7 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
           Container(
             decoration: BoxDecoration(
@@ -66,7 +66,7 @@ class _DetailScreenState extends State<DetailScreen> {
             height: 10,
           ),
           Text(
-            "Name: ${widget.naming}",
+            "نام: ${widget.naming}",
             style: TextStyle(
                 fontSize: 25, fontWeight: FontWeight.bold, color: Colors.brown),
           ),
@@ -79,25 +79,25 @@ class _DetailScreenState extends State<DetailScreen> {
                 Container(
                     margin: EdgeInsets.only(right: 30),
                     child: Text(
-                      "Temperature : ${widget.temperature}",
+                      "${widget.temperature} : درجہ حرارت",
                       style: TextStyle(fontSize: 20),
                     )),
                 Container(
                     margin: EdgeInsets.only(right: 100),
-                    child: Text("PH Range : ${widget.ph}",
+                    child: Text("${widget.ph} : پی ایچ رینج",
                         style: TextStyle(fontSize: 20))),
                 Container(
                     margin: EdgeInsets.only(right: 40),
-                    child: Text("Humidity Range : ${widget.humidity}",
+                    child: Text(" ${widget.humidity} : نمی کی حد ",
                         style: TextStyle(fontSize: 20))),
                 Container(
                     margin: EdgeInsets.only(right: 40),
-                    child: Text("Nitrogen Range : ${widget.nitrogen}",
+                    child: Text("  نائٹروجن رینج : ${widget.nitrogen} ",
                         style: TextStyle(fontSize: 20))),
                 Container(
                     margin: EdgeInsets.only(left: 5),
                     child: Text(
-                        "Water Level Per day in liter : ${widget.waterlevel}",
+                        " ${widget.waterlevel} : پانی کی سطح فی دن لیٹر میں ",
                         style: TextStyle(fontSize: 20))),
               ],
             ),
@@ -116,7 +116,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 Navigator.pop(context);
               },
               child: Text(
-                "Delete",
+                "Delete / حذف کریں۔",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -128,13 +128,13 @@ class _DetailScreenState extends State<DetailScreen> {
                     borderRadius: BorderRadius.circular(30),
                     side: BorderSide(
                       width: 0.1,
-                      color: Colors.brown,
+                      color: Colors.green,
                     ),
                   ),
                 ),
                 fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Colors.brown,
+                  Colors.green,
                 ),
               ),
             ),

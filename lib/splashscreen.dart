@@ -47,7 +47,7 @@ class _splashscreenState extends State<splashscreen> {
         Text(
           "CROP 2X",
           style: TextStyle(
-              color: Colors.brown, fontSize: 40, fontWeight: FontWeight.bold),
+              color: Colors.green, fontSize: 40, fontWeight: FontWeight.bold),
         ),
       ],
     )));

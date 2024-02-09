@@ -53,7 +53,7 @@ class _SignUpState extends State<SignUp> {
                   height: 200,
                 ),
                 Text(
-                  "SignUp",
+                  "SignUp / سائن اپ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -73,7 +73,7 @@ class _SignUpState extends State<SignUp> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter Email",
+                      hintText: "Enter Email / ای میل درج کریں۔ ",
                     ),
                   ),
                 ),
@@ -92,7 +92,7 @@ class _SignUpState extends State<SignUp> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter Password",
+                      hintText: "Enter Password / پاس ورڈ درج کریں",
                     ),
                   ),
                 ),
@@ -106,7 +106,7 @@ class _SignUpState extends State<SignUp> {
                       registeruser();
                     },
                     child: Text(
-                      "SignUp",
+                      "SignUp / سائن اپ",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

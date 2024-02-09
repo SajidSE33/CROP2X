@@ -30,7 +30,7 @@ class _homeState extends State<home> {
                     Text(
                       "CROP 2X",
                       style: TextStyle(
-                          color: Colors.brown,
+                          color: Colors.green,
                           fontSize: 40,
                           fontWeight: FontWeight.bold),
                     ),
@@ -98,21 +98,21 @@ class _homeState extends State<home> {
                     Container(
                       padding: EdgeInsets.all(10),
                       child: Column(
-                        children: [
+                        children: const [
                           Text(
-                            "This application provides guidance on",
+                            "یہ ایپلیکیشن رہنمائی فراہم کرتی ہے۔",
                             style: TextStyle(fontSize: 18),
                           ),
                           Text(
-                            " the proper outlines the optimal ",
+                            "مناسب خاکہ زیادہ سے زیادہ",
                             style: TextStyle(fontSize: 18),
                           ),
                           Text(
-                            " conditions for the successful",
+                            "کامیاب ہونے کے لئے شرائط",
                             style: TextStyle(fontSize: 18),
                           ),
                           Text(
-                            " growth of plants.",
+                            "پودوں کی ترقی.",
                             style: TextStyle(fontSize: 18),
                           ),
                         ],
@@ -131,7 +131,7 @@ class _homeState extends State<home> {
                     );
                   },
                   child: Text(
-                    "Show All Crops",
+                    "Show All Crops / تمام فصلیں دکھائیں۔",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -165,7 +165,7 @@ class _homeState extends State<home> {
                     );
                   },
                   child: Text(
-                    "Add Crops",
+                    "Add Crops / فصلیں شامل کریں۔",
                     style: TextStyle(
                       color: Color.fromARGB(255, 33, 150, 70),
                       fontSize: 20,

@@ -32,7 +32,7 @@ class _secondmainState extends State<secondmain> {
           context, MaterialPageRoute(builder: (context) => Login()));
               },
               child: Text(
-                "LogIn",
+                "LogIn / لاگ ان کریں ",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               style: ButtonStyle(
@@ -59,9 +59,9 @@ class _secondmainState extends State<secondmain> {
           context, MaterialPageRoute(builder: (context) => SignUp()));
               },
               child: Text(
-                "Create Account",
+                "Create Account / اکاؤنٹ بنائیں",
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 33, 150, 70)),
               ),

@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e) {
       setState(() {
         islogin = false;
-        errorMessage = 'Invalid email or password. Please try again.';
+        errorMessage = 'براے مہربانی دوبارہ کوشش کرین';
       });
     }
   }
@@ -58,10 +58,10 @@ class _LoginState extends State<Login> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 200,
+                  height: 150,
                 ),
                 Text(
-                  "SignIn",
+                  "SignIn/سائن ان",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -81,15 +81,15 @@ class _LoginState extends State<Login> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter Email",
+                      hintText: "Enter Email/ ی میل درج کریں۔",
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                // SizedBox(
+                //   height: 5,
+                // ),
                 Container(
-                  height: 70,
+                  height: 60,
                   width: 300,
                   child: TextField(
                     controller: passwordcontroller,
@@ -100,12 +100,12 @@ class _LoginState extends State<Login> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      hintText: "Enter Password",
+                      hintText: "Enter Password / پاس ورڈ درج کریں",
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                       loginpage();
                     },
                     child: Text(
-                      "LogIn ",
+                      "LogIn / لاگ ان کریں ",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 10,
                 ),
                 InkWell(
                   onTap: () {
@@ -148,12 +148,23 @@ class _LoginState extends State<Login> {
                       MaterialPageRoute(builder: (context) => SignUp()),
                     );
                   },
-                  child: Text(
-                    "If don't have an account, SignUp?",
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 15,
-                    ),
+                  child: const Column(
+                    children: [
+                      // Text(
+                      //   "If don't have an account, SignUp?",
+                      //   style: TextStyle(
+                      //     color: const Color.fromARGB(255, 0, 0, 0),
+                      //     fontSize: 15,
+                      //   ),
+                      // ),
+                      Text(
+                        "اگر آپ کے پاس اکاؤنٹ نہیں ہے تو سائن اپ کریں؟",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
