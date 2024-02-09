@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
+        "issuecontroller",
         "mainhome"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
