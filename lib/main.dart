@@ -1,12 +1,6 @@
-import 'package:cropx/add_data.dart';
-import 'package:cropx/home.dart';
-import 'package:cropx/login.dart';
-import 'package:cropx/loginorsignup.dart';
-import 'package:cropx/showall.dart';
 import 'package:cropx/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,11 +32,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
     home: splashscreen()
-      // home: secondmain(),
-        // home: home(),
-      // home: mainhome(),
-      // home: showalldata(),
-      // home:DetailScreen()
       
       );
   }
