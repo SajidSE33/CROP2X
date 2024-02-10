@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cropx/four_button.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -51,15 +52,15 @@ class _queryState extends State<query> {
     if (issuecontroller.text.isEmpty ||
         descriptioncontroller.text.isEmpty ||
         feedbackcontroller.text.isEmpty) {
-      print("براہ کرم تمام فیلڈز کو پُر کریں۔");
+      print("Fill all data");
       return;
     }
 
     try {
       await clients.add({
-        'issue / مسئلہ': issuecontroller.text,
-        'description / تفصیل': descriptioncontroller.text,
-        'feedback / رائے': feedbackcontroller.text,
+        'issue': issuecontroller.text,
+        'description': descriptioncontroller.text,
+        'feedback': feedbackcontroller.text,
       });
 
       // Clear text controllers after successful submission
@@ -71,7 +72,7 @@ class _queryState extends State<query> {
         const SnackBar(content: Text("فیڈ بیک فارم جمع کرایا گیا۔")),
       );
     } catch (error) {
-      print("Error / خرابی: $error");
+      print("Error$error");
     }
   }
 
@@ -79,113 +80,136 @@ class _queryState extends State<query> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('سینسر پر مبنی پروجیکٹ'),
-        backgroundColor: Colors.blue,
+        title: Center(
+          child: Text(
+            "فیڈ بیک فارم",
+            style: TextStyle(
+              fontSize: 20,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Color.fromARGB(255, 33, 150, 70),
       ),
-      backgroundColor: Colors.red,
-      body: Container(
-          margin: EdgeInsets.only(left: 2),
-          child: Column(children: [
-            SizedBox(height: 10),
-            const Text(
-              'فیڈ بیک فارم',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 24),
-            ),
-            // ElevatedButton(onPressed: () async{
-            //
-            //   if(result==null){
-            //     print("result");
-            //
-            //   }else{
-            //     print("error");
-            //   }
-            // }, child: Text('submit')),
-            //
-            SizedBox(height: 15),
-            Text(
-              "1) کیا آپ کو کوئی مسئلہ ہے؟",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15),
-            ),
-
-            SizedBox(height: 3),
-            TextField(
-              controller: issuecontroller,
-              obscureText: false,
-              decoration: const InputDecoration(
-                  hintText: "yes/no / ہاں/نہیں",
-                  hoverColor: Colors.blueGrey,
-                  prefixIcon: Icon(Icons.report_problem_outlined),
-                  prefixIconColor: Colors.black),
-            ),
-            SizedBox(height: 3),
-            Text(
-              "2) سوالات کی تفصیل؟",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15),
-            ),
-            SizedBox(height: 3),
-            TextField(
-              controller: descriptioncontroller,
-              obscureText: false,
-              decoration: const InputDecoration(
-                  hintText: "description / تفصیل ",
-                  hintMaxLines: 3,
-                  prefixIcon: Icon(Icons.question_answer_outlined),
-                  prefixIconColor: Colors.black),
-            ),
-            SizedBox(height: 3),
-            Text(
-              "3) کوئی حل یا رائے دیں؟",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15),
-            ),
-            SizedBox(height: 3),
-            TextField(
-              controller: feedbackcontroller,
-              obscureText: false,
-              decoration: const InputDecoration(
-                  hintText: "feedback / رائے",
-                  hintMaxLines: 3,
-                  prefixIcon: Icon(Icons.info),
-                  prefixIconColor: Colors.black),
-            ),
-            Container(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
               margin: EdgeInsets.only(left: 2),
-              height: 40,
-              width: 300,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(23), color: Colors.blue),
-              child: ElevatedButton(
-                // shape:RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(20),
-
-                onPressed: () {
-                  submit();
-                },
-                child: Text("Submit / جمع کرائیں"),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => authentication()));
-                },
-                child: Text("Back / پیچھے"))
-            // splashColor: Colors.p
-          ])),
+              child: Column(children: [
+                SizedBox(height: 80),
+                Text(
+                  "کیا آپ کو کوئی مسئلہ ہے؟",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 15),
+                ),
+                SizedBox(height: 3),
+                Container(
+                  height: 70,
+                  width: 300,
+                  child: TextField(
+                    controller: issuecontroller,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      hintText: "ہاں/نہیں",
+                    ),
+                  ),
+                ),
+                SizedBox(height: 3),
+                Text(
+                  "سوالات کی تفصیل؟",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 15),
+                ),
+                SizedBox(height: 3),
+                Container(
+                  height: 70,
+                  width: 300,
+                  child: TextField(
+                    controller: descriptioncontroller,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      hintText: "تفصیل",
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  "کوئی حل یا رائے دیں؟",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 15),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  height: 70,
+                  width: 300,
+                  child: TextField(
+                    controller: feedbackcontroller,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      hintText: "رائے",
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      submit();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => fourbutton()),
+                      );
+                    },
+                    child: Text(
+                      "جمع کرائیں",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side: BorderSide(
+                            width: 0.1,
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                      ),
+                      fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromARGB(255, 33, 150, 70),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                // splashColor: Colors.p
+              ])),
+        ),
+      ),
     );
   }
 }

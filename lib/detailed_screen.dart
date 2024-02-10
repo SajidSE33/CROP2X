@@ -35,7 +35,8 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(color: Colors.brown),
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 33, 150, 70)),
             padding: const EdgeInsets.only(top: 20, bottom: 20),
             child: const Center(
               child: Text(
@@ -77,21 +78,21 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Column(
               children: [
                 Container(
-                    margin: EdgeInsets.only(right: 30),
+                    margin: EdgeInsets.only(left: 70),
                     child: Text(
                       "${widget.temperature} : درجہ حرارت",
                       style: TextStyle(fontSize: 20),
                     )),
                 Container(
-                    margin: EdgeInsets.only(right: 100),
+                    margin: EdgeInsets.only(left: 80),
                     child: Text("${widget.ph} : پی ایچ رینج",
                         style: TextStyle(fontSize: 20))),
                 Container(
-                    margin: EdgeInsets.only(right: 40),
+                    margin: EdgeInsets.only(left: 80),
                     child: Text(" ${widget.humidity} : نمی کی حد ",
                         style: TextStyle(fontSize: 20))),
                 Container(
-                    margin: EdgeInsets.only(right: 40),
+                    margin: EdgeInsets.only(left: 50),
                     child: Text("  نائٹروجن رینج : ${widget.nitrogen} ",
                         style: TextStyle(fontSize: 20))),
                 Container(
@@ -135,6 +136,41 @@ class _DetailScreenState extends State<DetailScreen> {
                 fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
                 backgroundColor: MaterialStateProperty.all<Color>(
                   Colors.green,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Back /پیچھے",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+
+                ),
+              ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: BorderSide(
+                      width: 0.1,
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+                fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Colors.white,
                 ),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:cropx/four_button.dart';
 import 'package:cropx/home.dart';
 import 'package:cropx/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +31,7 @@ class _LoginState extends State<Login> {
       if (credential.user != null) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => home()),
+          MaterialPageRoute(builder: (context) => fourbutton()),
         );
       }
     } on FirebaseAuthException catch (e) {

@@ -30,7 +30,7 @@ class _homeState extends State<home> {
                     Text(
                       "CROP 2X",
                       style: TextStyle(
-                          color: Colors.green,
+                          color: Color.fromARGB(255, 33, 150, 70),
                           fontSize: 40,
                           fontWeight: FontWeight.bold),
                     ),
@@ -93,7 +93,7 @@ class _homeState extends State<home> {
                       ],
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
                       padding: EdgeInsets.all(10),
@@ -120,6 +120,9 @@ class _homeState extends State<home> {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 5,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -154,7 +157,7 @@ class _homeState extends State<home> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: ElevatedButton(
@@ -167,7 +170,7 @@ class _homeState extends State<home> {
                   child: Text(
                     "Add Crops / فصلیں شامل کریں۔",
                     style: TextStyle(
-                      color: Color.fromARGB(255, 33, 150, 70),
+                      color:Color.fromARGB(255, 33, 150, 70),
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),

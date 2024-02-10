@@ -18,7 +18,7 @@ class _showalldataState extends State<showalldata> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.brown,
+        backgroundColor: Color.fromARGB(255, 33, 150, 70),
         title: Padding(padding: const EdgeInsets.fromLTRB(0, 0, 60, 0),child: const Center(
           child: Text(
             "CROP 2X",
@@ -29,7 +29,7 @@ class _showalldataState extends State<showalldata> {
           ),
         ),)
       ),
-      backgroundColor: const Color.fromARGB(255, 235, 227, 225),
+      backgroundColor: Color.fromARGB(255, 182, 205, 185),
       body: Center(
         child: Expanded(
           child: FirebaseAnimatedList(

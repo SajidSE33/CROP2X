@@ -16,12 +16,11 @@ class _secondmainState extends State<secondmain> {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 10),
             height: 500,
-            width: 300,
+            width: 450,
             child: Image.asset(
-              "images/secondmain.png",
-              fit: BoxFit.cover,
+              "images/aftersplash.png",
+              // fit: BoxFit.cover,
             ),
           ),
           Padding(

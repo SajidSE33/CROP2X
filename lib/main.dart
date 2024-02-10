@@ -1,3 +1,6 @@
+import 'package:cropx/four_button.dart';
+import 'package:cropx/home.dart';
+import 'package:cropx/loginorsignup.dart';
 import 'package:cropx/mapp/mappage.dart';
 import 'package:cropx/qure.dart';
 import 'package:cropx/splashscreen.dart';
@@ -33,9 +36,12 @@ class _MyAppState extends State<MyApp> {
     true;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: splashscreen()
-      //  home: authentication(),
-      // home: mappage(),
+       home: splashscreen()
+      // home: authentication(),
+      // home: home(),
+    //  home: fourbutton(),
+    // home: secondmain(),
+
     );
   }
 }
