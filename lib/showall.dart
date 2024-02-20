@@ -25,6 +25,7 @@ class _showalldataState extends State<showalldata> {
             style: TextStyle(
               fontSize: 30,
               color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.w700
             ),
           ),
         ),)

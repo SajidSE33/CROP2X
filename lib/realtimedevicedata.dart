@@ -31,13 +31,19 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
   List<Map<String, int>> receivedDataList = [];
 
   StreamController<String> idStream = StreamController<String>.broadcast();
-  StreamController<String> temperatureStream = StreamController<String>.broadcast();
-  StreamController<String> conductivityStream = StreamController<String>.broadcast();
-  StreamController<String> moistureStream = StreamController<String>.broadcast();
+  StreamController<String> temperatureStream =
+      StreamController<String>.broadcast();
+  StreamController<String> conductivityStream =
+      StreamController<String>.broadcast();
+  StreamController<String> moistureStream =
+      StreamController<String>.broadcast();
   StreamController<String> pHStream = StreamController<String>.broadcast();
-  StreamController<String> nitrogenStream = StreamController<String>.broadcast();
-  StreamController<String> phosphorusStream = StreamController<String>.broadcast();
-  StreamController<String> potassiumStream = StreamController<String>.broadcast();
+  StreamController<String> nitrogenStream =
+      StreamController<String>.broadcast();
+  StreamController<String> phosphorusStream =
+      StreamController<String>.broadcast();
+  StreamController<String> potassiumStream =
+      StreamController<String>.broadcast();
 
   int dataCount = 0;
 
@@ -91,13 +97,14 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
   }
 
   Future<void> connectToDevice() async {
-    BluetoothDevice selectedDevice = (await FlutterBluetoothSerial.instance.getBondedDevices())
-        .firstWhere(
+    BluetoothDevice selectedDevice =
+        (await FlutterBluetoothSerial.instance.getBondedDevices()).firstWhere(
       (device) => device.address == esp32SensorMacAddress,
       orElse: () => throw Exception('Device not found'),
     );
 
-    await BluetoothConnection.toAddress(selectedDevice.address).then((BluetoothConnection connection) {
+    await BluetoothConnection.toAddress(selectedDevice.address)
+        .then((BluetoothConnection connection) {
       print('Connected to the device');
       setState(() {
         this._connection = connection;
@@ -139,110 +146,327 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   title: Text(
+      //     'Crop 2x project',
+      //     style: TextStyle(
+      //         color: Color.fromARGB(255, 0, 128, 6),
+      //         fontWeight: FontWeight.w900),
+      //     textAlign: TextAlign.center,
+      //   ),
+      // ),
       appBar: AppBar(
-        title: Text('Crop 2x project'),
+        elevation: 0,
+        backgroundColor: Color.fromARGB(255, 33, 150, 70),
+        title: Padding(padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),child: const Center(
+          child: Text(
+            "CROP 2X",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 30,
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.w700
+            ),
+          ),
+        ),)
       ),
       body: Center(
         child: Column(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            SizedBox(height: 23,),
+            Row(
               children: [
-                ElevatedButton(
-                  onPressed: connectToDevice,
-                  child: Text('Connect'),
+                Container(
+                  margin: EdgeInsets.fromLTRB(20, 0, 50,0),
+                  child: Text(""),
+                  width: 80,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 0, 128, 6),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
                 ),
-                SizedBox(width: 4),
-                ElevatedButton(
-                  onPressed: disconnectFromDevice,
-                  child: Text('Disconnect'),
+                SizedBox(width: 10,),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 50,0),
+                  child: Text(""),
+                  width: 30,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 0, 128, 6),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
                 ),
-                SizedBox(width: 4),
-                Text(
-                  connectedDevice == null
-                      ? 'Not Connected'
-                      : 'Connected to ${connectedDevice!.name}',
+                // SizedBox(width: 10,),
+                Container(
+                  margin: EdgeInsets.fromLTRB(20, 0, 0,0),
+                  child: Text(""),
+                  width: 80,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 0, 128, 6),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 30),
+
+            SizedBox(height: 16,),
             Container(
-              width: 300,
-              margin: EdgeInsets.only(right: 90),
+              width: 340,
+              height: 540,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  // color: const Color.fromARGB(255, 0, 128, 6),
+                  color: Colors.black,
+                  width: 5, // Adjust border width here
+                ),
+                borderRadius:
+                    BorderRadius.circular(20), // Adjust border radius here
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  StreamBuilder<String>(
-                    stream: idStream.stream,
-                    initialData: '',
-                    builder: (context, snapshot) {
-                      currentId = snapshot.data ?? '';
-                      return Info(': آئی ڈی', isConnected ? snapshot.data ?? '' : "");
-                    },
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: connectToDevice,
+                            child: Text(
+                              'منسلک کریں',
+                              style: TextStyle(
+                                // fontFamily: "Gilroy-Bold",
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(140, 5),
+                              // side: BorderSide(width: 2),
+                              shape: StadiumBorder(),
+                              backgroundColor: Color.fromARGB(255, 0, 128, 6),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          ElevatedButton(
+                            onPressed: disconnectFromDevice,
+                            child: Text(
+                              'منقطع',
+                              style: TextStyle(
+                                // fontFamily: "Gilroy-Bold",
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(140, 5),
+                              // side: BorderSide(width: 2),
+                              shape: StadiumBorder(),
+                              backgroundColor: Color.fromARGB(255, 0, 128, 6),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        width: 300,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 0, 128, 6),
+                            width: 3, // Adjust border width here
+                          ),
+                          borderRadius: BorderRadius.circular(
+                              20), // Adjust border radius here
+                        ),
+                        child: Center(
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            connectedDevice == null
+                                ? 'منسلک نہیں'
+                                : '${connectedDevice!.name} سے جڑا ہوا',
+                            style: TextStyle(
+                              // fontFamily: "Gilroy-Bold",
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              color: Color.fromARGB(255, 0, 128, 6),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  StreamBuilder<String>(
-                    stream: temperatureStream.stream,
-                    initialData: '',
-                    builder: (context, snapshot) {
-                      temperatureValue = snapshot.data ?? '';
-                      return Info(': % درجہ حرارت', isConnected ? snapshot.data ?? '' : "");
-                    },
+                  SizedBox(height: 20),
+                  Container(
+                    width: 302,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 0, 128, 6),
+                        width: 3, // Adjust border width here
+                      ),
+                      borderRadius: BorderRadius.circular(
+                          20), // Adjust border radius here
+                    ),
+                    // margin: EdgeInsets.only(right: 90),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          StreamBuilder<String>(
+                            stream: idStream.stream,
+                            initialData: '',
+                            builder: (context, snapshot) {
+                              currentId = snapshot.data ?? '';
+                              return Info(': آئی ڈی',
+                                  isConnected ? snapshot.data ?? '' : "");
+                            },
+                          ),
+                          StreamBuilder<String>(
+                            stream: temperatureStream.stream,
+                            initialData: '',
+                            builder: (context, snapshot) {
+                              temperatureValue = snapshot.data ?? '';
+                              return Info(': % درجہ حرارت',
+                                  isConnected ? snapshot.data ?? '' : "");
+                            },
+                          ),
+                          StreamBuilder<String>(
+                            stream: conductivityStream.stream,
+                            initialData: '',
+                            builder: (context, snapshot) {
+                              conductivityValue = snapshot.data ?? '';
+                              return Info(':uS/cmکٹئؤئٹئ',
+                                  isConnected ? snapshot.data ?? '' : "");
+                            },
+                          ),
+                          StreamBuilder<String>(
+                            stream: moistureStream.stream,
+                            initialData: '',
+                            builder: (context, snapshot) {
+                              moistureValue = snapshot.data ?? '';
+                              return Info(': % نمی',
+                                  isConnected ? snapshot.data ?? '' : "");
+                            },
+                          ),
+                          StreamBuilder<String>(
+                            stream: pHStream.stream,
+                            initialData: '',
+                            builder: (context, snapshot) {
+                              pHValue = snapshot.data ?? '';
+                              return Info(': پی ایچ',
+                                  isConnected ? snapshot.data ?? '' : "");
+                            },
+                          ),
+                          StreamBuilder<String>(
+                            stream: nitrogenStream.stream,
+                            initialData: '',
+                            builder: (context, snapshot) {
+                              nitrogenValue = snapshot.data ?? '';
+                              return Info(': mg/Kg نائٹروجن',
+                                  isConnected ? snapshot.data ?? '' : "");
+                            },
+                          ),
+                          StreamBuilder<String>(
+                            stream: phosphorusStream.stream,
+                            initialData: '',
+                            builder: (context, snapshot) {
+                              phosphorusValue = snapshot.data ?? '';
+                              return Info(': mg/Kg فاسفورس',
+                                  isConnected ? snapshot.data ?? '' : "");
+                            },
+                          ),
+                          StreamBuilder<String>(
+                            stream: potassiumStream.stream,
+                            initialData: '',
+                            builder: (context, snapshot) {
+                              potassiumValue = snapshot.data ?? '';
+                              return Info(': mg/Kg پوٹاشیم',
+                                  isConnected ? snapshot.data ?? '' : "");
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  StreamBuilder<String>(
-                    stream: conductivityStream.stream,
-                    initialData: '',
-                    builder: (context, snapshot) {
-                      conductivityValue = snapshot.data ?? '';
-                      return Info(':uS/cmکٹئؤئٹئ', isConnected ? snapshot.data ?? '' : "");
-                    },
-                  ),
-                  StreamBuilder<String>(
-                    stream: moistureStream.stream,
-                    initialData: '',
-                    builder: (context, snapshot) {
-                      moistureValue = snapshot.data ?? '';
-                      return Info(': % نمی', isConnected ? snapshot.data ?? '' : "");
-                    },
-                  ),
-                  StreamBuilder<String>(
-                    stream: pHStream.stream,
-                    initialData: '',
-                    builder: (context, snapshot) {
-                      pHValue = snapshot.data ?? '';
-                      return Info(': پی ایچ', isConnected ? snapshot.data ?? '' : "");
-                    },
-                  ),
-                  StreamBuilder<String>(
-                    stream: nitrogenStream.stream,
-                    initialData: '',
-                    builder: (context, snapshot) {
-                      nitrogenValue = snapshot.data ?? '';
-                      return Info(': mg/Kg نائٹروجن', isConnected ? snapshot.data ?? '' : "");
-                    },
-                  ),
-                  StreamBuilder<String>(
-                    stream: phosphorusStream.stream,
-                    initialData: '',
-                    builder: (context, snapshot) {
-                      phosphorusValue = snapshot.data ?? '';
-                      return Info(': mg/Kg فاسفورس', isConnected ? snapshot.data ?? '' : "");
-                    },
-                  ),
-                  StreamBuilder<String>(
-                    stream: potassiumStream.stream,
-                    initialData: '',
-                    builder: (context, snapshot) {
-                      potassiumValue = snapshot.data ?? '';
-                      return Info(': mg/Kg پوٹاشیم', isConnected ? snapshot.data ?? '' : "");
-                    },
+                  SizedBox(height: 20),
+                  // Display the count of received data items
+                  // Text('Data Count: $dataCount'),// -----------------------------for testing
+                  ElevatedButton(
+                    onPressed: connectToDevice,
+                    child: Text(
+                      'محفوظ کریں۔',
+                      style: TextStyle(
+                        // fontFamily: "Gilroy-Bold",
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(200, 5),
+                      // side: BorderSide(width: 2),
+                      shape: StadiumBorder(),
+                      backgroundColor: Color.fromARGB(255, 0, 128, 6),
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            // Display the count of received data items
-            Text('Data Count: $dataCount'),
+
+
+
+                  //last design pattern -----------------------------
+                  SizedBox(height: 18,),
+            Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(20, 0, 50,0),
+                  child: Text(""),
+                  width: 80,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 0, 128, 6),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+                SizedBox(width: 10,),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 50,0),
+                  child: Text(""),
+                  width: 30,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 0, 128, 6),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+                // SizedBox(width: 10,),
+                Container(
+                  margin: EdgeInsets.fromLTRB(20, 0, 0,0),
+                  child: Text(""),
+                  width: 80,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 0, 128, 6),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:cropx/realtimedevicedata.dart';
 import 'package:cropx/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,7 +32,8 @@ class _MyAppState extends State<MyApp> {
     true;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-       home: splashscreen()
+      //  home: splashscreen()
+       home: MyBluetoothApp()
       // home: authentication(),
       // home: home(),
     //  home: fourbutton(),
