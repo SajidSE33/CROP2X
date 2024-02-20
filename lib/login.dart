@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
       if (credential.user != null) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => fourbutton()),
+          MaterialPageRoute(builder: (context) => const fourbutton()),
         );
       }
     } on FirebaseAuthException catch (e) {
@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("images/login.png"),
               fit: BoxFit.cover,
@@ -58,17 +58,17 @@ class _LoginState extends State<Login> {
           child: Center(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 150,
                 ),
-                Text(
+                const Text(
                   "SignIn/سائن ان",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Container(
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
                     controller: emailcontroller,
                     
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -97,7 +97,7 @@ class _LoginState extends State<Login> {
                     obscureText: true,
                     decoration: InputDecoration(
                       
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -105,7 +105,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                     onPressed: () {
                       loginpage();
                     },
-                    child: Text(
+                    child: const Text(
                       "LogIn / لاگ ان کریں ",
                       style: TextStyle(
                         fontSize: 20,
@@ -126,27 +126,27 @@ class _LoginState extends State<Login> {
                           MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
-                          side: BorderSide(
+                          side: const BorderSide(
                             width: 0.1,
-                            color: const Color.fromARGB(255, 255, 255, 255),
+                            color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
                       ),
-                      fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
+                      fixedSize: MaterialStateProperty.all<Size>(const Size(300, 50)),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 33, 150, 70),
+                        const Color.fromARGB(255, 33, 150, 70),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 InkWell(
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => SignUp()),
+                      MaterialPageRoute(builder: (context) => const SignUp()),
                     );
                   },
                   child: const Column(
@@ -168,13 +168,13 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   child: Text(
                     errorMessage,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
               ],

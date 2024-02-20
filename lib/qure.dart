@@ -47,8 +47,6 @@ class _queryState extends State<query> {
   TextEditingController feedbackcontroller = TextEditingController();
   submit() async {
     var clients = FirebaseFirestore.instance.collection(mycollection.farmer);
-
-    // Ensure that the values are not empty
     if (issuecontroller.text.isEmpty ||
         descriptioncontroller.text.isEmpty ||
         feedbackcontroller.text.isEmpty) {
@@ -62,8 +60,6 @@ class _queryState extends State<query> {
         'description': descriptioncontroller.text,
         'feedback': feedbackcontroller.text,
       });
-
-      // Clear text controllers after successful submission
       issuecontroller.text = "";
       descriptioncontroller.text = "";
       feedbackcontroller.text = "";

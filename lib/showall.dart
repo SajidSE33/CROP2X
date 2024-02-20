@@ -37,7 +37,6 @@ class _showalldataState extends State<showalldata> {
             itemBuilder: (context, snapshot, animation, index) {
               Map keys = snapshot.value as Map;
               keys['name'] = snapshot.key;
-
               // Extract data from the snapshot
               String name = snapshot
                   .child('name')

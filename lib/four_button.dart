@@ -17,7 +17,7 @@ class _fourbuttonState extends State<fourbutton> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
+        title: const Padding(
           padding: EdgeInsets.only(left: 30),
           child: Text(
             "CROP 2X",
@@ -28,7 +28,7 @@ class _fourbuttonState extends State<fourbutton> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 33, 150, 70),
+        backgroundColor: const Color.fromARGB(255, 33, 150, 70),
       ),
       drawer: Drawer(
         child: ListView(
@@ -49,11 +49,11 @@ class _fourbuttonState extends State<fourbutton> {
               ),
             ),
             ListTile(
-              leading: CircleAvatar(
+              leading: const CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Icon(
                   Icons.home,
-                  color: const Color.fromARGB(255, 33, 150, 70),
+                  color: Color.fromARGB(255, 33, 150, 70),
                 ),
               ),
               title: const Text('گھر',
@@ -61,10 +61,10 @@ class _fourbuttonState extends State<fourbutton> {
               onTap: () {},
             ),
             ListTile(
-              leading: CircleAvatar(
+              leading: const CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Icon(Icons.settings,
-                    color: const Color.fromARGB(255, 33, 150, 70)),
+                    color: Color.fromARGB(255, 33, 150, 70)),
               ),
               title: const Text(
                 'سیٹنگ',
@@ -73,17 +73,17 @@ class _fourbuttonState extends State<fourbutton> {
               onTap: () {},
             ),
             ListTile(
-              leading: CircleAvatar(
+              leading: const CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Icon(Icons.logout,
-                    color: const Color.fromARGB(255, 33, 150, 70)),
+                    color: Color.fromARGB(255, 33, 150, 70)),
               ),
               title: const Text('باہر جائیں',
                   style: TextStyle(fontSize: 16, color: Colors.brown)),
               onTap: () {
                 Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => secondmain()),
+          MaterialPageRoute(builder: (context) => const secondmain()),
         );
               },
             ),
@@ -98,7 +98,7 @@ class _fourbuttonState extends State<fourbutton> {
               width: double.infinity,
               height: 200,
               child: ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
                 ),
@@ -108,7 +108,7 @@ class _fourbuttonState extends State<fourbutton> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(
@@ -121,7 +121,7 @@ class _fourbuttonState extends State<fourbutton> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => real()),
+                    MaterialPageRoute(builder: (context) => MyBluetoothApp()),
                   );
                 },
                 child: Center(
@@ -131,11 +131,11 @@ class _fourbuttonState extends State<fourbutton> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "ریئل ٹائم فصلوں کا ڈیٹا",
                 style: TextStyle(
                     fontSize: 20,
@@ -143,7 +143,7 @@ class _fourbuttonState extends State<fourbutton> {
                     color: Colors.brown),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(
@@ -156,7 +156,7 @@ class _fourbuttonState extends State<fourbutton> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => home()),
+                    MaterialPageRoute(builder: (context) => const home()),
                   );
                 },
                 child: Center(
@@ -166,11 +166,11 @@ class _fourbuttonState extends State<fourbutton> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "فصل کی ترقی کی تفصیل",
                 style: TextStyle(
                     fontSize: 20,
@@ -178,7 +178,7 @@ class _fourbuttonState extends State<fourbutton> {
                     color: Colors.brown),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(
@@ -191,7 +191,7 @@ class _fourbuttonState extends State<fourbutton> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => location()),
+                    MaterialPageRoute(builder: (context) => const location()),
                   );
                 },
                 child: Center(
@@ -201,11 +201,11 @@ class _fourbuttonState extends State<fourbutton> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "کسان کا مقام",
                 style: TextStyle(
                     fontSize: 20,
@@ -213,11 +213,11 @@ class _fourbuttonState extends State<fourbutton> {
                     color: Colors.brown),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     border: Border.all(width: 5, color: Colors.brown),
                     borderRadius: BorderRadius.circular(200)),
@@ -227,7 +227,7 @@ class _fourbuttonState extends State<fourbutton> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => authentication()),
+                      MaterialPageRoute(builder: (context) => const authentication()),
                     );
                   },
                   child: Center(
@@ -236,11 +236,11 @@ class _fourbuttonState extends State<fourbutton> {
                     ),
                   ),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "فیڈ بیک فارم",
                 style: TextStyle(
                     fontSize: 20,
@@ -248,7 +248,7 @@ class _fourbuttonState extends State<fourbutton> {
                     color: Colors.brown),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             )
           ],

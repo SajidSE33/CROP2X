@@ -1,8 +1,3 @@
-import 'package:cropx/four_button.dart';
-import 'package:cropx/home.dart';
-import 'package:cropx/loginorsignup.dart';
-import 'package:cropx/mapp/mappage.dart';
-import 'package:cropx/qure.dart';
 import 'package:cropx/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
