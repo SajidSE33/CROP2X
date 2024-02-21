@@ -119,6 +119,7 @@ class _LoginState extends State<Login> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white
                       ),
                     ),
                     style: ButtonStyle(
@@ -134,7 +135,7 @@ class _LoginState extends State<Login> {
                       ),
                       fixedSize: MaterialStateProperty.all<Size>(const Size(300, 50)),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color.fromARGB(255, 33, 150, 70),
+                        const Color.fromARGB(255, 0, 128, 6),
                       ),
                     ),
                   ),

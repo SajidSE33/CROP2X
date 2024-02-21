@@ -18,7 +18,7 @@ class _showalldataState extends State<showalldata> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 33, 150, 70),
+        backgroundColor: Color.fromARGB(255, 0, 128, 6),
         title: Padding(padding: const EdgeInsets.fromLTRB(0, 0, 60, 0),child: const Center(
           child: Text(
             "CROP 2X",

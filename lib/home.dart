@@ -30,7 +30,7 @@ class _homeState extends State<home> {
                     Text(
                       "CROP 2X",
                       style: TextStyle(
-                          color: Color.fromARGB(255, 33, 150, 70),
+                          color: Color.fromARGB(255, 0, 128, 6),
                           fontSize: 40,
                           fontWeight: FontWeight.bold),
                     ),
@@ -137,6 +137,7 @@ class _homeState extends State<home> {
                     "Show All Crops / تمام فصلیں دکھائیں۔",
                     style: TextStyle(
                       fontSize: 20,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -152,7 +153,7 @@ class _homeState extends State<home> {
                     ),
                     fixedSize: MaterialStateProperty.all<Size>(Size(350, 50)),
                     backgroundColor: MaterialStateProperty.all<Color>(
-                      Color.fromARGB(255, 33, 150, 70),
+                      Color.fromARGB(255, 0, 128, 6),
                     ),
                   ),
                 ),
@@ -170,7 +171,7 @@ class _homeState extends State<home> {
                   child: Text(
                     "Add Crops / فصلیں شامل کریں۔",
                     style: TextStyle(
-                      color:Color.fromARGB(255, 33, 150, 70),
+                      color:Color.fromARGB(255, 0, 128, 6),
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -181,7 +182,7 @@ class _homeState extends State<home> {
                         borderRadius: BorderRadius.circular(30),
                         side: BorderSide(
                           width: 1,
-                          color: const Color.fromARGB(255, 33, 150, 70),
+                          color: Color.fromARGB(255, 0, 128, 6),
                         ),
                       ),
                     ),

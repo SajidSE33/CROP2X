@@ -86,7 +86,7 @@ class _queryState extends State<query> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 33, 150, 70),
+        backgroundColor: Color.fromARGB(255, 0, 128, 6),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -194,7 +194,7 @@ class _queryState extends State<query> {
                       ),
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 33, 150, 70),
+                        Color.fromARGB(255, 0, 128, 6),
                       ),
                     ),
                   ),

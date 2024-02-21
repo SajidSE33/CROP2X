@@ -125,7 +125,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 33, 150, 70),
+                        Color.fromARGB(255, 0, 128, 6),
                       ),
                     ),
                   ),

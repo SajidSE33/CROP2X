@@ -18,17 +18,18 @@ class _fourbuttonState extends State<fourbutton> {
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
-          padding: EdgeInsets.only(left: 30),
+          padding: EdgeInsets.only(left: 45),
           child: Text(
             "CROP 2X",
             style: TextStyle(
               fontSize: 30,
+              fontWeight: FontWeight.w700,
               color: Color.fromARGB(255, 255, 255, 255),
             ),
           ),
         ),
         elevation: 0,
-        backgroundColor: const Color.fromARGB(255, 33, 150, 70),
+        backgroundColor: const Color.fromARGB(255, 0, 128, 6),
       ),
       drawer: Drawer(
         child: ListView(
@@ -36,7 +37,7 @@ class _fourbuttonState extends State<fourbutton> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 33, 150, 70),
+                color: Color.fromARGB(255, 0, 128, 6),
               ),
               child: Center(
                 child: Text(
@@ -53,7 +54,7 @@ class _fourbuttonState extends State<fourbutton> {
                 backgroundColor: Colors.white,
                 child: Icon(
                   Icons.home,
-                  color: Color.fromARGB(255, 33, 150, 70),
+                  color:Color.fromARGB(255, 0, 128, 6),
                 ),
               ),
               title: const Text('گھر',
@@ -64,7 +65,7 @@ class _fourbuttonState extends State<fourbutton> {
               leading: const CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Icon(Icons.settings,
-                    color: Color.fromARGB(255, 33, 150, 70)),
+                    color: Color.fromARGB(255, 0, 128, 6)),
               ),
               title: const Text(
                 'سیٹنگ',
@@ -76,7 +77,7 @@ class _fourbuttonState extends State<fourbutton> {
               leading: const CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Icon(Icons.logout,
-                    color: Color.fromARGB(255, 33, 150, 70)),
+                    color: Color.fromARGB(255, 0, 128, 6)),
               ),
               title: const Text('باہر جائیں',
                   style: TextStyle(fontSize: 16, color: Colors.brown)),
@@ -113,7 +114,7 @@ class _fourbuttonState extends State<fourbutton> {
             ),
             Container(
               decoration: BoxDecoration(
-                  border: Border.all(width: 5, color: Colors.brown),
+                  border: Border.all(width: 5, color: Color.fromARGB(255, 0, 128, 6)),
                   borderRadius: BorderRadius.circular(200)),
               height: 150,
               width: 150,
@@ -140,7 +141,7 @@ class _fourbuttonState extends State<fourbutton> {
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.brown),
+                    color: Color.fromARGB(255, 0, 128, 6)),
               ),
             ),
             const SizedBox(
@@ -148,7 +149,7 @@ class _fourbuttonState extends State<fourbutton> {
             ),
             Container(
               decoration: BoxDecoration(
-                  border: Border.all(width: 5, color: Colors.brown),
+                  border: Border.all(width: 5, color:Color.fromARGB(255, 0, 128, 6)),
                   borderRadius: BorderRadius.circular(200)),
               height: 150,
               width: 150,
@@ -175,7 +176,7 @@ class _fourbuttonState extends State<fourbutton> {
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.brown),
+                    color: Color.fromARGB(255, 0, 128, 6)),
               ),
             ),
             const SizedBox(
@@ -183,7 +184,7 @@ class _fourbuttonState extends State<fourbutton> {
             ),
             Container(
               decoration: BoxDecoration(
-                  border: Border.all(width: 5, color: Colors.brown),
+                  border: Border.all(width: 5, color:Color.fromARGB(255, 0, 128, 6)),
                   borderRadius: BorderRadius.circular(200)),
               height: 150,
               width: 150,
@@ -210,7 +211,7 @@ class _fourbuttonState extends State<fourbutton> {
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.brown),
+                    color:Color.fromARGB(255, 0, 128, 6)),
               ),
             ),
             const SizedBox(
@@ -219,7 +220,7 @@ class _fourbuttonState extends State<fourbutton> {
             Container(
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                    border: Border.all(width: 5, color: Colors.brown),
+                    border: Border.all(width: 5, color: Color.fromARGB(255, 0, 128, 6)),
                     borderRadius: BorderRadius.circular(200)),
                 height: 150,
                 width: 150,
@@ -245,7 +246,7 @@ class _fourbuttonState extends State<fourbutton> {
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.brown),
+                    color: Color.fromARGB(255, 0, 128, 6)),
               ),
             ),
             const SizedBox(

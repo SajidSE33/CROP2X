@@ -37,7 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
           children: [
             Container(
               decoration:
-                  const BoxDecoration(color: Color.fromARGB(255, 33, 150, 70)),
+                  const BoxDecoration(color: Color.fromARGB(255, 0, 128, 6)),
               padding: const EdgeInsets.only(top: 20, bottom: 20),
               child: const Center(
                 child: Text(
@@ -130,13 +130,13 @@ class _DetailScreenState extends State<DetailScreen> {
                       borderRadius: BorderRadius.circular(30),
                       side: BorderSide(
                         width: 0.1,
-                        color: Colors.green,
+                        color: Color.fromARGB(255, 0, 128, 6),
                       ),
                     ),
                   ),
                   fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
                   backgroundColor: MaterialStateProperty.all<Color>(
-                    Colors.green,
+                    Color.fromARGB(255, 0, 128, 6),
                   ),
                 ),
               ),
@@ -153,7 +153,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: Text(
                   "Back /پیچھے",
                   style: TextStyle(
-                    color: Colors.green,
+                    color: Color.fromARGB(255, 0, 128, 6),
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
       
@@ -165,7 +165,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       borderRadius: BorderRadius.circular(30),
                       side: BorderSide(
                         width: 0.1,
-                        color: Colors.green,
+                        color: Color.fromARGB(255, 0, 128, 6),
                       ),
                     ),
                   ),

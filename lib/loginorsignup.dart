@@ -32,7 +32,7 @@ class _secondmainState extends State<secondmain> {
               },
               child: Text(
                 "LogIn / لاگ ان کریں ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
               ),
               style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -40,11 +40,10 @@ class _secondmainState extends State<secondmain> {
                           borderRadius: BorderRadius.circular(30),
                           side: BorderSide(
                               width: 0.1,
-                              color:
-                                  const Color.fromARGB(255, 255, 255, 255)))),
+                              color:const Color.fromARGB(255, 255, 255, 255)))),
                   fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
                   backgroundColor: MaterialStateProperty.all<Color>(
-                      Color.fromARGB(255, 33, 150, 70))),
+                      Color.fromARGB(255, 0, 128, 6))),
             ),
           ),
           SizedBox(
@@ -62,7 +61,7 @@ class _secondmainState extends State<secondmain> {
                 style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 33, 150, 70)),
+                    color: Color.fromARGB(255, 0, 128, 6)),
               ),
               style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -71,7 +70,7 @@ class _secondmainState extends State<secondmain> {
                           side: BorderSide(
                               width: 1,
                               color:
-                                  const Color.fromARGB(255, 33, 150, 70)))),
+                                  Color.fromARGB(255, 0, 128, 6)))),
                   fixedSize: MaterialStateProperty.all<Size>(Size(300, 50)),
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Color.fromARGB(255, 255, 255, 255))),

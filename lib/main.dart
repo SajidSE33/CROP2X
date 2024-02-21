@@ -32,8 +32,9 @@ class _MyAppState extends State<MyApp> {
     true;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //  home: splashscreen()
-       home: MyBluetoothApp()
+       home: splashscreen()
+      //  home: check()
+      //  home: MyBluetoothApp()
       // home: authentication(),
       // home: home(),
     //  home: fourbutton(),

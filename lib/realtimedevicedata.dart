@@ -156,28 +156,30 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
       //   ),
       // ),
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Color.fromARGB(255, 33, 150, 70),
-        title: Padding(padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),child: const Center(
+        title: const Padding(
+          padding: EdgeInsets.only(left: 45),
           child: Text(
             "CROP 2X",
-            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 30,
+              fontWeight: FontWeight.w700,
               color: Color.fromARGB(255, 255, 255, 255),
-              fontWeight: FontWeight.w700
             ),
           ),
-        ),)
+        ),
+        elevation: 0,
+        backgroundColor: const Color.fromARGB(255, 0, 128, 6),
       ),
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 23,),
+            SizedBox(
+              height: 23,
+            ),
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 50,0),
+                  margin: EdgeInsets.fromLTRB(20, 0, 50, 0),
                   child: Text(""),
                   width: 80,
                   height: 12,
@@ -186,9 +188,11 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
-                SizedBox(width: 10,),
+                SizedBox(
+                  width: 10,
+                ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 50,0),
+                  margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(""),
                   width: 30,
                   height: 12,
@@ -199,7 +203,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                 ),
                 // SizedBox(width: 10,),
                 Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 0,0),
+                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                   child: Text(""),
                   width: 80,
                   height: 12,
@@ -211,9 +215,11 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
               ],
             ),
 
-            SizedBox(height: 16,),
-            Container(
-              width: 340,
+            SizedBox(
+              height: 16,
+            ),
+            Container(  //////////////main black ----------------
+              width: 350,
               height: 540,
               decoration: BoxDecoration(
                 border: Border.all(
@@ -254,7 +260,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                             ),
                           ),
                           SizedBox(
-                            width: 15,
+                            width: 35,
                           ),
                           ElevatedButton(
                             onPressed: disconnectFromDevice,
@@ -280,7 +286,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                         height: 15,
                       ),
                       Container(
-                        width: 300,
+                        width: 320,
                         height: 40,
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -308,8 +314,8 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                     ],
                   ),
                   SizedBox(height: 20),
-                  Container(
-                    width: 302,
+                  Container(  //container of details ----------------------------//
+                    width: 320,
                     height: 300,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -349,7 +355,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                             initialData: '',
                             builder: (context, snapshot) {
                               conductivityValue = snapshot.data ?? '';
-                              return Info(':uS/cmکٹئؤئٹئ',
+                              return Info(': uS/cmکٹئؤئٹئ',
                                   isConnected ? snapshot.data ?? '' : "");
                             },
                           ),
@@ -404,7 +410,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   ),
                   SizedBox(height: 20),
                   // Display the count of received data items
-                  // Text('Data Count: $dataCount'),// -----------------------------for testing
+                  // Text('Data Count: $dataCount'),//-------------------for testing
                   ElevatedButton(
                     onPressed: connectToDevice,
                     child: Text(
@@ -427,14 +433,14 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
               ),
             ),
 
-
-
-                  //last design pattern -----------------------------
-                  SizedBox(height: 18,),
+            //last design pattern -----------------------------
+            SizedBox(
+              height: 18,
+            ),
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 50,0),
+                  margin: EdgeInsets.fromLTRB(20, 0, 50, 0),
                   child: Text(""),
                   width: 80,
                   height: 12,
@@ -443,9 +449,11 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
-                SizedBox(width: 10,),
+                SizedBox(
+                  width: 10,
+                ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 50,0),
+                  margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(""),
                   width: 30,
                   height: 12,
@@ -456,7 +464,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                 ),
                 // SizedBox(width: 10,),
                 Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 0,0),
+                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                   child: Text(""),
                   width: 80,
                   height: 12,

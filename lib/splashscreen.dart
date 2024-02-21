@@ -25,7 +25,9 @@ class _splashscreenState extends State<splashscreen> {
         body: Center(
             child: Column(
       children: [
-        SizedBox(height: 100,),
+        SizedBox(
+          height: 100,
+        ),
         Container(
           height: 300,
           width: 300,
@@ -47,7 +49,9 @@ class _splashscreenState extends State<splashscreen> {
         Text(
           "CROP 2X",
           style: TextStyle(
-              color: Color.fromARGB(255, 33, 150, 70), fontSize: 40, fontWeight: FontWeight.bold),
+              color: Color.fromARGB(255, 0, 128, 6),
+              fontSize: 40,
+              fontWeight: FontWeight.bold),
         ),
       ],
     )));

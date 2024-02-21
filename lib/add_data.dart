@@ -201,7 +201,7 @@ class _mainhomeState extends State<mainhome> {
                       borderRadius: BorderRadius.circular(30),
                       side: const BorderSide(
                         width: 0.1,
-                        color: Colors.green,
+                        color: Color.fromARGB(255, 0, 128, 6),
                       ),
                     ),
                   ),
