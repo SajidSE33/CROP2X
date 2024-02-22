@@ -165,32 +165,32 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
     });
   }
 
-  void adddata() async {
-    for (var i = 0; i < receivedDataList.length; i++) {
-      var realdata = FirebaseFirestore.instance.collection(data.datalist);
-      try {
-        if (receivedDataList[i]["id"]==null ) {
+  // void adddata() async {
+  //   for (var i = 0; i < receivedDataList.length; i++) {
+  //     var realdata = FirebaseFirestore.instance.collection(data.datalist);
+  //     try {
+  //       if (receivedDataList[i]["id"]==null ) {
           
-        }
-        else{
-                  await realdata.add({
-          "id": receivedDataList[i]["id"],
-          "c": receivedDataList[i]["c"],
-          "k": receivedDataList[i]["k"],
-          "m": receivedDataList[i]["m"],
-          "n": receivedDataList[i]["n"],
-          "p": receivedDataList[i]["p"],
-          "pH": receivedDataList[i]["pH"],
-          "t": receivedDataList[i]["t"],
-        });
-        }
+  //       }
+  //       else{
+  //                 await realdata.add({
+  //         "id": receivedDataList[i]["id"],
+  //         "c": receivedDataList[i]["c"],
+  //         "k": receivedDataList[i]["k"],
+  //         "m": receivedDataList[i]["m"],
+  //         "n": receivedDataList[i]["n"],
+  //         "p": receivedDataList[i]["p"],
+  //         "pH": receivedDataList[i]["pH"],
+  //         "t": receivedDataList[i]["t"],
+  //       });
+  //       }
 
-      } catch (e) {
-        print("Sajid nahi howa ha add kuch kar ${e}");
-      }
-    }
-    receivedDataList.clear();
-  }
+  //     } catch (e) {
+  //       print("Sajid nahi howa ha add kuch kar ${e}");
+  //     }
+  //   }
+  //   receivedDataList.clear();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -354,6 +354,9 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Container(
                     //container of details ----------------------------//
                     width: 320,
@@ -507,23 +510,23 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                       backgroundColor: Color.fromARGB(255, 0, 128, 6),
                     ),
                   ),
-                  Row(
-                    children: [
-                      ElevatedButton(
-                          onPressed: () async {
-                            receivedDataList = await readCounter(context);
-                            adddata();
-                            await (await _localFile).writeAsString('');
-                          },
-                          child: Text("Add Data")),
-                      ElevatedButton(
-                          onPressed: () async {
-                            List receivedData = await readCounter(context);
-                            print(receivedData);
-                          },
-                          child: Text("Show Data"))
-                    ],
-                  )
+                  // Row(
+                  //   children: [
+                  //     ElevatedButton(
+                  //         onPressed: () async {
+                  //           // receivedDataList = await readCounter(context);
+                  //           // adddata();
+                  //           // await (await _localFile).writeAsString('');
+                  //         },
+                  //         child: Text("Add Data")),
+                  //     ElevatedButton(
+                  //         onPressed: () async {
+                  //           // List receivedData = await readCounter(context);
+                  //           // print(receivedData);
+                  //         },
+                  //         child: Text("Show Data"))
+                  //   ],
+                  // )
                 ],
               ),
             ),
@@ -625,9 +628,9 @@ Widget Info(String label, String data) {
   );
 }
 
-class data {
-  static String datalist = "realtimedata";
-}
+// class data {
+//   static String datalist = "realtimedata";
+// }
 
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
@@ -662,49 +665,49 @@ Future<void> writeCounter(String counter, BuildContext context) async {
   }
 }
 
-Map<String, dynamic> parseStringToMap(String line) {
-  try {
-    // Preprocess the line to convert it into valid JSON
-    line =
-        line.replaceAll('{', '{"').replaceAll(':', '":').replaceAll(', ', ',"');
+// Map<String, dynamic> parseStringToMap(String line) {
+//   try {
+//     // Preprocess the line to convert it into valid JSON
+//     line =
+//         line.replaceAll('{', '{"').replaceAll(':', '":').replaceAll(', ', ',"');
 
-    // Use json.decode to convert the string to a map
-    return json.decode(line);
-  } catch (e) {
-    // Handle parsing error
-    print('Error parsing line: $e');
-    return {};
-  }
-}
+//     // Use json.decode to convert the string to a map
+//     return json.decode(line);
+//   } catch (e) {
+//     // Handle parsing error
+//     print('Error parsing line: $e');
+//     return {};
+//   }
+// }
 
-Future<List<Map<String, dynamic>>> readCounter(BuildContext context) async {
-  try {
-    final file = await _localFile;
+// Future<List<Map<String, dynamic>>> readCounter(BuildContext context) async {
+//   try {
+//     final file = await _localFile;
 
-    // Read content from the file
-    String content = await file.readAsString();
+//     // Read content from the file
+//     String content = await file.readAsString();
 
-    // Split the content into lines
-    List<String> lines = content.split('\n');
+//     // Split the content into lines
+//     List<String> lines = content.split('\n');
 
-    // List to store maps
-    List<Map<String, dynamic>> mapsList = [];
+//     // List to store maps
+//     List<Map<String, dynamic>> mapsList = [];
 
-    // Parse each line into a map
-    for (String line in lines) {
-      try {
-        // Replace this with your actual method to parse a string into a map
-        Map<String, dynamic> map = parseStringToMap(line);
+//     // Parse each line into a map
+//     for (String line in lines) {
+//       try {
+//         // Replace this with your actual method to parse a string into a map
+//         Map<String, dynamic> map = parseStringToMap(line);
 
-        // Add the map to the list
-        mapsList.add(map);
-      } catch (e) {
-        print('Error parsing line: $e');
-      }
-    }
-    return mapsList;
-  } catch (e) {
-    return [];
-  }
-}
+//         // Add the map to the list
+//         mapsList.add(map);
+//       } catch (e) {
+//         print('Error parsing line: $e');
+//       }
+//     }
+//     return mapsList;
+//   } catch (e) {
+//     return [];
+//   }
+// }
 

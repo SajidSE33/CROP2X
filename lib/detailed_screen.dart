@@ -122,6 +122,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white
                   ),
                 ),
                 style: ButtonStyle(
