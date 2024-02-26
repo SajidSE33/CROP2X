@@ -517,7 +517,7 @@
 //                         ),
 //                       ),
 //                       Container(
-                  
+
 //                         child: Row(
 //                           mainAxisAlignment: MainAxisAlignment.center,
 //                           children: [Text(currentDate,style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),SizedBox(width: 10,),Text(": تاریخ",style: TextStyle(fontWeight: FontWeight.bold),)],
@@ -693,8 +693,6 @@
 //   } catch (e) {}
 // }
 
-
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -705,6 +703,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:geolocator/geolocator.dart';
+
 void main() async {
   runApp(const MyApp());
 }
@@ -722,12 +721,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: MyBluetoothApp(),
-
-
     );
   }
 }
-
 
 class MyBluetoothApp extends StatefulWidget {
   @override
@@ -772,18 +768,18 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
 
   StreamController<String> idStream = StreamController<String>.broadcast();
   StreamController<String> temperatureStream =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
   StreamController<String> conductivityStream =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
   StreamController<String> moistureStream =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
   StreamController<String> pHStream = StreamController<String>.broadcast();
   StreamController<String> nitrogenStream =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
   StreamController<String> phosphorusStream =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
   StreamController<String> potassiumStream =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
 
   int dataCount = 0;
 
@@ -808,20 +804,20 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
   void _listenForLocationChanges() {
     _positionStreamSubscription =
         Geolocator.getPositionStream().listen((Position position) {
-          setState(() {
-            latitude = position.latitude.toString();
-            longitude = position.longitude.toString();
-          });
-        });
+      setState(() {
+        latitude = position.latitude.toString();
+        longitude = position.longitude.toString();
+      });
+    });
   }
 
   void _updateDateTime() {
     DateTime now = DateTime.now();
     setState(() {
       currentDate =
-      '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+          '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
       currentTime =
-      '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}';
+          '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}';
     });
   }
 
@@ -863,8 +859,8 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
 
   Future<void> connectToDevice() async {
     BluetoothDevice selectedDevice =
-    (await FlutterBluetoothSerial.instance.getBondedDevices()).firstWhere(
-          (device) => device.address == esp32SensorMacAddress,
+        (await FlutterBluetoothSerial.instance.getBondedDevices()).firstWhere(
+      (device) => device.address == esp32SensorMacAddress,
       orElse: () => throw Exception('Device not found'),
     );
 
@@ -980,7 +976,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   width: 3, // Adjust border width here
                 ),
                 borderRadius:
-                BorderRadius.circular(20), // Adjust border radius here
+                    BorderRadius.circular(20), // Adjust border radius here
               ),
               child: Column(
                 children: [
@@ -1101,7 +1097,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
 
                                 // Check if snapshot data is not empty before displaying the text
                                 String displayText =
-                                isConnected ? snapshot.data ?? '' : "";
+                                    isConnected ? snapshot.data ?? '' : "";
                                 TextSpan textSpan = TextSpan(
                                   text: ' آئی ڈی ',
                                   style: TextStyle(
@@ -1227,27 +1223,77 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                       Container(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [Text(longitude,style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),SizedBox(width: 10,), Text(": طول البلد",style: TextStyle(fontWeight: FontWeight.bold),)],
+                          children: [
+                            Text(
+                              longitude,
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              ": طول البلد",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
                         ),
                       ),
                       Container(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [Text(latitude,style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),SizedBox(width: 10,), Text(": عرض البلد",style: TextStyle(fontWeight: FontWeight.bold),)],
+                          children: [
+                            Text(
+                              latitude,
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              ": عرض البلد",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
                         ),
                       ),
                       Container(
-
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [Text(currentDate,style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),SizedBox(width: 10,),Text(": تاریخ",style: TextStyle(fontWeight: FontWeight.bold),)],
+                          children: [
+                            Text(
+                              currentDate,
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              ": تاریخ",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
                         ),
                       ),
                       Container(
-
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [Text(currentTime,style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),SizedBox(width: 10,),Text(": اوقات",style: TextStyle(fontWeight: FontWeight.bold),)],
+                          children: [
+                            Text(
+                              currentTime,
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              ": اوقات",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
                         ),
                       ),
                     ],
@@ -1258,8 +1304,8 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   ElevatedButton(
                     onPressed: () {
                       Map<String, String> adddatmap = {
-                        "date":currentDate,
-                        "time":currentTime,
+                        "date": currentDate,
+                        "time": currentTime.replaceAll(':', '-'),
                         "id": addidstr,
                         "c": addcondstr,
                         "k": addpotstr,
@@ -1268,9 +1314,8 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                         "p": addphosstr,
                         "pH": addphstr,
                         "t": addtemstr,
-                        "latitude":latitude,
-                        "longitude":longitude,
-
+                        "latitude": latitude,
+                        "longitude": longitude,
                       };
                       print("  hogya maping      ${adddatmap}");
                       String mapAsString = adddatmap.toString();
