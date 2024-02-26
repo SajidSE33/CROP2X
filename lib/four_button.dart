@@ -1,5 +1,4 @@
 import 'package:cropx/home.dart';
-import 'package:cropx/location.dart';
 import 'package:cropx/loginorsignup.dart';
 import 'package:cropx/qure.dart';
 import 'package:cropx/realtimedevicedata.dart';
@@ -158,10 +157,10 @@ class _MainScreenState extends State<MainScreen> {
                   width: 150,
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LocationScreen()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => LocationScreen()),
+                      // );
                     },
                     child: Center(
                       child: ClipOval(

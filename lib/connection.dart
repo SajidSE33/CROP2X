@@ -84,12 +84,6 @@ class _ConnectivityState extends State<Connection> {
   Widget build(BuildContext context) {
     // Define your widget tree here
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Your App Title'),
-      ),
-      body: Center(
-        child: Text('Your App Content'),
-      ),
     );
   }
 }

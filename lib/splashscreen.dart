@@ -32,13 +32,16 @@ class _splashscreenState extends State<splashscreen> {
           String doc1 = "$date-$time"; 
           await realdata.doc(doc1).set({
             "id": receivedDataList[i]["id"],
-            "c": receivedDataList[i]["c"],
-            "k": receivedDataList[i]["k"],
-            "m": receivedDataList[i]["m"],
-            "n": receivedDataList[i]["n"],
-            "p": receivedDataList[i]["p"],
+            "conductivity": receivedDataList[i]["c"],
+            "potassium": receivedDataList[i]["k"],
+            "moisture": receivedDataList[i]["m"],
+            "nitrogen": receivedDataList[i]["n"],
+            "phosphor": receivedDataList[i]["p"],
             "pH": receivedDataList[i]["pH"],
-            "t": receivedDataList[i]["t"],
+            "temperature": receivedDataList[i]["t"],
+            "longitude": receivedDataList[i]["longitude"],
+            "latitude": receivedDataList[i]["latitude"],
+
           });
         }
       } catch (e) {
