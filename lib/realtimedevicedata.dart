@@ -85,7 +85,10 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
     }
   }
 
-  void _listenForLocationChanges() {
+  void _listenForLocationChanges() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+
     _positionStreamSubscription =
         Geolocator.getPositionStream().listen((Position position) {
       setState(() {
@@ -93,6 +96,9 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
         longitude = position.longitude.toString();
       });
     });
+
+    print(latitude + "your latitude");
+    print(longitude + "your longitude");
   }
 
   void _updateDateTime() {
