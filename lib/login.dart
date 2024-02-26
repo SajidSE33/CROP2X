@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
         password: passwordcontroller.text,
       );
       if (credential.user != null) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const fourbutton()),
         );
