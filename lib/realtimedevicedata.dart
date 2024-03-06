@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 // ignore: unused_import
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:vibration/vibration.dart';
 
 class MyBluetoothApp extends StatefulWidget {
   @override
@@ -21,14 +24,15 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
   String longitude = '';
   String currentDate = '';
   String currentTime = '';
-  StreamSubscription<Position>? _positionStreamSubscription;
+  late StreamSubscription<Position> _positionStreamSubscription;
   late Timer _timer;
-  //  final String esp32SensorMacAddress = "E4:65:B8:84:05:EA";
-  final String esp32SensorMacAddress = "40:91:51:FC:D1:2A";
+  final String esp32SensorMacAddress = "E4:65:B8:84:05:EA";
+  // final String esp32SensorMacAddress = "40:91:51:FC:D1:2A";
   StreamSubscription<Uint8List>? _dataStreamSubscription;
   String dataBuffer = '';
   bool isConnected = false;
   bool isLoading = false;
+  bool soundAndVibrationCalled = false;
 
   String currentId = '0';
   String temperatureValue = '0';
@@ -38,18 +42,22 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
   String nitrogenValue = '0';
   String phosphorusValue = '0';
   String potassiumValue = '0';
+  bool indicator = false;
+  bool indicatorzero = false;
 
-  String addidstr = "";
-  String addtemstr = "";
-  String addcondstr = "";
+  bool isFirstZero = true;
+
+  String addidstr = " ";
+  String addtemstr = " ";
+  String addcondstr = " ";
   String addmoisstr = " ";
   String addphstr = " ";
   String addnitstr = " ";
   String addphosstr = " ";
   String addpotstr = " ";
-
-  List receivedDataList = [];
-
+  List<Map<String, String>> receivedDataList = [];
+  List recivedsnapshot = [];
+  Map<String, String> avgMap = {};
   StreamController<String> idStream = StreamController<String>.broadcast();
   StreamController<String> temperatureStream =
       StreamController<String>.broadcast();
@@ -66,12 +74,12 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
       StreamController<String>.broadcast();
 
   int dataCount = 0;
-
   @override
   void initState() {
     super.initState();
     checkBluetoothState();
     _listenForLocationChanges();
+    connectToDevice();
     _updateDateTime(); // Initial update
     _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       _updateDateTime(); // Update every second
@@ -85,20 +93,33 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
     }
   }
 
-  void _listenForLocationChanges() async {
-    await Geolocator.checkPermission();
-    await Geolocator.requestPermission();
+  void performVibration(BuildContext context) {
+    try {
+      Vibration.vibrate();
+      print("\n\n\n\n\n\nvibration done\n\n\n\n\n");
+    } catch (e) {}
+  }
 
-    _positionStreamSubscription =
-        Geolocator.getPositionStream().listen((Position position) {
-      setState(() {
-        latitude = position.latitude.toString();
-        longitude = position.longitude.toString();
-      });
-    });
+  Future<void> playSound() async {
+    print("\n\n\n\n\n\nsound done\n\n\n\n\n");
+    String url = 'sound.mp3';
+    final player = AudioPlayer();
+    await player.play(AssetSource(url));
+  }
 
-    print(latitude + "your latitude");
-    print(longitude + "your longitude");
+  void _listenForLocationChanges() {
+    // Request continuous location updates
+    _positionStreamSubscription = Geolocator.getPositionStream().listen(
+      (Position position) {
+        setState(() {
+          latitude = position.latitude.toString();
+          longitude = position.longitude.toString();
+        });
+      },
+      onError: (dynamic error) => print('Error: $error'),
+      onDone: () => print('Done!'),
+      cancelOnError: false,
+    );
   }
 
   void _updateDateTime() {
@@ -189,6 +210,57 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
     });
   }
 
+  Map<String, String> average(List<Map<String, String>> list) {
+    Map<String, double> sumMap = {
+      'c': 0,
+      'k': 0,
+      'm': 0,
+      'n': 0,
+      'p': 0,
+      'pH': 0,
+      't': 0,
+    };
+
+    // Add the values of 'c', 'k', 'm', 'n', 'p', 'pH', and 't' from all maps in the list
+    for (var map in list) {
+      map.forEach((key, value) {
+        if (sumMap.containsKey(key)) {
+          sumMap[key] = (sumMap[key] ?? 0) +
+              (double.tryParse(value) ??
+                  0); // Use null-aware operators to handle null case
+        }
+      });
+    }
+
+    // Calculate the average for each key
+    int length = list.length;
+    sumMap.forEach((key, value) {
+      sumMap[key] = value / length;
+    });
+
+    // Create a new map containing the averages and retain the values of 'date', 'time', 'id', 'latitude', and 'longitude' from the first map
+    Map<String, String> avgMap = {};
+    list[0].forEach((key, value) {
+      if (sumMap.containsKey(key)) {
+        avgMap[key] = sumMap[key]?.toStringAsFixed(4) ?? "";
+      } else {
+        avgMap[key] = value;
+      }
+    });
+
+    return avgMap;
+  }
+
+  Future<bool> isConnectionAvailable(BuildContext context) async {
+    final connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      return false;
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -200,12 +272,12 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w700,
-              color: Color.fromARGB(255, 255, 255, 255),
+              color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
             ),
           ),
         ),
         elevation: 0,
-        backgroundColor: const Color.fromARGB(255, 0, 128, 6),
+        backgroundColor: Color.fromARGB(255, 0x00, 0x60, 0x4F),
       ),
       body: Center(
         child: Column(
@@ -221,7 +293,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   width: 80,
                   height: 7,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 0, 128, 6),
+                    color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
@@ -234,7 +306,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   width: 30,
                   height: 7,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 0, 128, 6),
+                    color:Color.fromARGB(255, 0x00, 0x60, 0x4F),
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
@@ -245,7 +317,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   width: 80,
                   height: 7,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 0, 128, 6),
+                    color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
@@ -294,7 +366,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                               fixedSize: Size(140, 5),
                               // side: BorderSide(width: 2),
                               shape: StadiumBorder(),
-                              backgroundColor: Color.fromARGB(255, 0, 128, 6),
+                              backgroundColor: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                             ),
                           ),
                           SizedBox(
@@ -315,7 +387,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                               fixedSize: Size(140, 5),
                               // side: BorderSide(width: 2),
                               shape: StadiumBorder(),
-                              backgroundColor: Color.fromARGB(255, 0, 128, 6),
+                              backgroundColor: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                             ),
                           ),
                         ],
@@ -328,7 +400,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                         height: 40,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: const Color.fromARGB(255, 0, 128, 6),
+                            color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                             width: 3, // Adjust border width here
                           ),
                           borderRadius: BorderRadius.circular(
@@ -344,7 +416,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                               // fontFamily: "Gilroy-Bold",
                               fontSize: 17,
                               fontWeight: FontWeight.w700,
-                              color: Color.fromARGB(255, 0, 128, 6),
+                              color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                             ),
                           ),
                         ),
@@ -361,7 +433,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                     height: 250,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: const Color.fromARGB(255, 0, 128, 6),
+                        color:Color.fromARGB(255, 0x00, 0x60, 0x4F),
                         width: 3, // Adjust border width here
                       ),
                       borderRadius: BorderRadius.circular(
@@ -393,7 +465,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
-                                    color: Color.fromARGB(255, 0, 128, 6),
+                                    color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                                   ),
                                   children: [
                                     TextSpan(
@@ -401,7 +473,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
-                                        color: Color.fromARGB(255, 0, 128, 6),
+                                        color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                                       ),
                                     ),
                                   ],
@@ -446,10 +518,272 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                               if (snapshot.data != addmoisstr) {
                                 addmoisstr = snapshot.data ?? '';
                               }
+                              if (addmoisstr == "0" || addmoisstr == "") {
+                                print(
+                                    "\n\n\n\n\ndaata is zero or empty   ${addmoisstr}\n\n\n\n\n");
+
+                                indicator = false;
+                                print("not done");
+                              } else {
+                                print(
+                                    "\n\n\n\n\ndaata is not not not not not not   zero or empty   ${addmoisstr}\n\n\n\n\n");
+                                if (!indicator) {
+                                  performVibration(context);
+                                  playSound();
+                                  const duration = Duration(seconds: 3);
+                                  int counter = 1;
+                                  Timer.periodic(duration, (Timer timer) async {
+                                    counter++;
+                                    if (counter < 5) {
+                                      Map<String, String> adddatmap = {
+                                        "date": currentDate,
+                                        "time":
+                                            currentTime.replaceAll(':', '-'),
+                                        "id": addidstr,
+                                        "c": addcondstr,
+                                        "k": addpotstr,
+                                        "m": addmoisstr,
+                                        "n": addnitstr,
+                                        "p": addphosstr,
+                                        "pH": addphstr,
+                                        "t": addtemstr,
+                                        "latitude": latitude,
+                                        "longitude": longitude,
+                                      };
+                                      receivedDataList.add(adddatmap);
+                                    }
+                                    if (counter == 5) {
+                                      performVibration(context);
+                                      playSound();
+                                      avgMap = average(receivedDataList);
+                                      if (await isConnectionAvailable(
+                                          context)) {
+                                        var realdata = FirebaseFirestore
+                                            .instance
+                                            .collection(data.datalist);
+                                        try {
+                                          String? date = avgMap["date"];
+                                          String? time = avgMap["time"];
+                                          time = time?.replaceAll('-', ':');
+                                          String doc1 = "$date-$time";
+                                          await realdata.doc(doc1).set({
+                                            "id": avgMap["id"],
+                                            "conductivity": avgMap["c"],
+                                            "potassium": avgMap["k"],
+                                            "moisture": avgMap["m"],
+                                            "nitrogen": avgMap["n"],
+                                            "phosphor": avgMap["p"],
+                                            "pH": avgMap["pH"],
+                                            "temperature": avgMap["t"],
+                                            "longitude": avgMap["longitude"],
+                                            "latitude": avgMap["latitude"],
+                                          });
+                                        } catch (e) {
+                                          print(
+                                              "Sajid nahi howa ha add kuch kar ${e}");
+                                        }
+                                      } else {
+                                        print(
+                                            "\\n\n\n\n\n\n\n\n\naba add nahi howa ha ${avgMap}\n\n\n\n\n\n\n\n");
+                                        String mapAsString1 = avgMap.toString();
+                                        writeCounter(mapAsString1, context);
+                                        print("\n");
+                                        print("\n");
+                                        print("\n");
+                                        print("\n");
+                                        print("\n");
+                                        List<Map<String, String>> counterList =
+                                            await readCounter(context);
+                                        print(
+                                            "Txt Content\n\n\n\n\n\n\n\n    $counterList\n\n\n\n ");
+                                      }
+                                    }
+                                  });
+                                  print("done");
+                                  indicator = true;
+                                }
+                              }
+                              // else {
+                              // if (!indicator) {
+                              //   performVibration(context);
+                              //   playSound();
+                              //   const duration = Duration(seconds: 3);
+                              //   int counter = 1;
+                              //   Timer.periodic(duration, (Timer timer) async {
+                              //     counter++;
+                              //     if (counter < 5) {
+                              //       Map<String, String> adddatmap = {
+                              //         "date": currentDate,
+                              //         "time":
+                              //             currentTime.replaceAll(':', '-'),
+                              //         "id": addidstr,
+                              //         "c": addcondstr,
+                              //         "k": addpotstr,
+                              //         "m": addmoisstr,
+                              //         "n": addnitstr,
+                              //         "p": addphosstr,
+                              //         "pH": addphstr,
+                              //         "t": addtemstr,
+                              //         "latitude": latitude,
+                              //         "longitude": longitude,
+                              //       };
+                              //       receivedDataList.add(adddatmap);
+                              //     }
+                              //     if (counter == 5) {
+                              //       performVibration(context);
+                              //       playSound();
+                              //       avgMap = average(receivedDataList);
+                              //       if (await isConnectionAvailable(
+                              //           context)) {
+                              //         var realdata = FirebaseFirestore
+                              //             .instance
+                              //             .collection(data.datalist);
+                              //         try {
+                              //           String? date = avgMap["date"];
+                              //           String? time = avgMap["time"];
+                              //           time = time?.replaceAll('-', ':');
+                              //           String doc1 = "$date-$time";
+                              //           await realdata.doc(doc1).set({
+                              //             "id": avgMap["id"],
+                              //             "conductivity": avgMap["c"],
+                              //             "potassium": avgMap["k"],
+                              //             "moisture": avgMap["m"],
+                              //             "nitrogen": avgMap["n"],
+                              //             "phosphor": avgMap["p"],
+                              //             "pH": avgMap["pH"],
+                              //             "temperature": avgMap["t"],
+                              //             "longitude": avgMap["longitude"],
+                              //             "latitude": avgMap["latitude"],
+                              //           });
+                              //         } catch (e) {
+                              //           print(
+                              //               "Sajid nahi howa ha add kuch kar ${e}");
+                              //         }
+                              //       } else {
+                              //         print(
+                              //             "\\n\n\n\n\n\n\n\n\naba add nahi howa ha ${avgMap}\n\n\n\n\n\n\n\n");
+                              //         String mapAsString1 = avgMap.toString();
+                              //         writeCounter(mapAsString1, context);
+                              //         print("\n");
+                              //         print("\n");
+                              //         print("\n");
+                              //         print("\n");
+                              //         print("\n");
+                              //         List<Map<String, String>> counterList =
+                              //             await readCounter(context);
+                              //         print(
+                              //             "Txt Content\n\n\n\n\n\n\n\n    $counterList\n\n\n\n ");
+                              //       }
+                              //     }
+                              //     print("done");
+                              //     indicator = true;
+                              //   });
+                              // }
+                              // }
                               return Info(': % نمی',
                                   isConnected ? snapshot.data ?? '' : "");
                             },
                           ),
+
+                          // StreamBuilder<String>(
+                          //     stream: moistureStream.stream,
+                          //     initialData: '',
+                          //     builder: (context, snapshot) {
+                          //       moistureValue = snapshot.data ?? '';
+                          //       if (snapshot.data != addmoisstr) {
+                          //         addmoisstr = snapshot.data ?? '';
+                          //       }
+
+                          //       if (addmoisstr == "0" && isFirstZero) {
+                          //         performVibration(context);
+                          //         playSound();
+
+                          //         const duration = Duration(seconds: 3);
+                          //         int counter = 1;
+                          //         Timer.periodic(duration, (Timer timer) async {
+                          //           counter++;
+                          //           if (counter < 5) {
+                          //             Map<String, String> adddatmap = {
+                          //               "date": currentDate,
+                          //               "time":
+                          //                   currentTime.replaceAll(':', '-'),
+                          //               "id": addidstr,
+                          //               "c": addcondstr,
+                          //               "k": addpotstr,
+                          //               "m": addmoisstr,
+                          //               "n": addnitstr,
+                          //               "p": addphosstr,
+                          //               "pH": addphstr,
+                          //               "t": addtemstr,
+                          //               "latitude": latitude,
+                          //               "longitude": longitude,
+                          //             };
+                          //             receivedDataList.add(adddatmap);
+                          //           }
+                          //           if (counter == 5) {
+                          //             performVibration(context);
+                          //             playSound();
+                          //             avgMap = average(receivedDataList);
+                          //             if (await isConnectionAvailable(
+                          //                 context)) {
+                          //               var realdata = FirebaseFirestore
+                          //                   .instance
+                          //                   .collection(data.datalist);
+                          //               try {
+                          //                 String? date = avgMap["date"];
+                          //                 String? time = avgMap["time"];
+                          //                 time = time?.replaceAll('-', ':');
+                          //                 String doc1 = "$date-$time";
+                          //                 await realdata.doc(doc1).set({
+                          //                   "id": avgMap["id"],
+                          //                   "conductivity": avgMap["c"],
+                          //                   "potassium": avgMap["k"],
+                          //                   "moisture": avgMap["m"],
+                          //                   "nitrogen": avgMap["n"],
+                          //                   "phosphor": avgMap["p"],
+                          //                   "pH": avgMap["pH"],
+                          //                   "temperature": avgMap["t"],
+                          //                   "longitude": avgMap["longitude"],
+                          //                   "latitude": avgMap["latitude"],
+                          //                 });
+                          //               } catch (e) {
+                          //                 print(
+                          //                     "Sajid nahi howa ha add kuch kar ${e}");
+                          //               }
+                          //             } else {
+                          //               print(
+                          //                   "\\n\n\n\n\n\n\n\n\naba add nahi howa ha ${avgMap}\n\n\n\n\n\n\n\n");
+                          //               String mapAsString1 = avgMap.toString();
+                          //               writeCounter(mapAsString1, context);
+                          //               print("\n");
+                          //               print("\n");
+                          //               print("\n");
+                          //               print("\n");
+                          //               print("\n");
+                          //               List<Map<String, String>> counterList =
+                          //                   await readCounter(context);
+                          //               print(
+                          //                   "Txt Content\n\n\n\n\n\n\n\n    $counterList\n\n\n\n ");
+                          //             }
+                          //           }
+                          //         });
+                          //         print("first zero value");
+                          //         isFirstZero = false;
+                          //       } else if (addmoisstr == "") {
+                          //         indicatorzero = false;
+                          //         print("not done");
+                          //       } else {
+                          //         if (!indicatorzero) {
+                          //           performVibration(context);
+                          //           playSound();
+                          //           print("done");
+                          //           indicatorzero = true;
+                          //         }
+                          //       }
+                          //       return Info(': % نمی',
+                          //           isConnected ? snapshot.data ?? '' : "");
+                          //     }),
+
                           StreamBuilder<String>(
                             stream: pHStream.stream,
                             initialData: '',
@@ -591,6 +925,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   SizedBox(
                     height: 20,
                   ),
+
                   ElevatedButton(
                     onPressed: () {
                       Map<String, String> adddatmap = {
@@ -607,6 +942,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                         "latitude": latitude,
                         "longitude": longitude,
                       };
+
                       print("  hogya maping      ${adddatmap}");
                       String mapAsString = adddatmap.toString();
                       writeCounter(mapAsString, context);
@@ -624,7 +960,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                       fixedSize: Size(200, 5),
                       // side: BorderSide(width: 2),
                       shape: StadiumBorder(),
-                      backgroundColor: Color.fromARGB(255, 0, 128, 6),
+                      backgroundColor: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                     ),
                   ),
                 ],
@@ -643,7 +979,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   width: 80,
                   height: 12,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 0, 128, 6),
+                    color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
@@ -656,7 +992,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   width: 30,
                   height: 12,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 0, 128, 6),
+                    color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
@@ -667,7 +1003,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
                   width: 80,
                   height: 12,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 0, 128, 6),
+                    color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
@@ -690,7 +1026,7 @@ class _MyBluetoothAppState extends State<MyBluetoothApp> {
     nitrogenStream.close();
     phosphorusStream.close();
     potassiumStream.close();
-    _positionStreamSubscription?.cancel();
+    _positionStreamSubscription.cancel();
     _timer.cancel();
     super.dispose();
   }
@@ -737,7 +1073,7 @@ Future<String> get _localPath async {
 
 Future<File> get _localFile async {
   final path = await _localPath;
-  return File('$path/data.txt');
+  return File('$path/crop1.txt');
 }
 
 Future<void> writeCounter(String counter, BuildContext context) async {
@@ -750,5 +1086,60 @@ Future<void> writeCounter(String counter, BuildContext context) async {
     String newContent = '$existingContent\n$counter';
     await file.writeAsString(newContent);
     print('File saved at: ${file.path}');
-  } catch (e) {}
+  } catch (e) {
+    print("\\n\n\n\n\n\n\n\n\naba add nahi howa ha ${e}\n\n\n\n\n\n\n\n");
+  }
+}
+
+Map<String, String> parseStringToMap(String line) {
+  try {
+    // Preprocess the line to convert it into valid JSON
+    line = line
+        .replaceAll('{', '{"')
+        .replaceAll(':', '":"')
+        .replaceAll(', ', '","')
+        .replaceAll('}', '"}');
+
+    // Use json.decode to convert the string to a map
+    return Map<String, String>.from(json.decode(line));
+  } catch (e) {
+    // Handle parsing error
+    print('Error parsing line: $e');
+    return {};
+  }
+}
+
+Future<List<Map<String, String>>> readCounter(BuildContext context) async {
+  try {
+    final file = await _localFile;
+
+    // Read content from the file
+    String content = await file.readAsString();
+
+    // Split the content into lines
+    List<String> lines = content.split('\n');
+
+    // List to store maps
+    List<Map<String, String>> mapsList = [];
+
+    // Parse each line into a map
+    for (String line in lines) {
+      try {
+        // Replace this with your actual method to parse a string into a map
+        Map<String, String> map = parseStringToMap(line);
+
+        // Add the map to the list
+        mapsList.add(map);
+      } catch (e) {
+        print('Error parsing line: $e');
+      }
+    }
+    return mapsList;
+  } catch (e) {
+    return [];
+  }
+}
+
+class data {
+  static String datalist = "realtimedata";
 }

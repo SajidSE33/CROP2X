@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:cropx/loginorsignup.dart';
-import 'package:flutter/material.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cropx/four_button.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 class splashscreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class splashscreen extends StatefulWidget {
 }
 
 class _splashscreenState extends State<splashscreen> {
-  List receivedDataList = [];
+List<Map<String, String>> receivedDataList = [];
   void adddata() async {
     print("sajid dakh abhi ${receivedDataList}");
     print("\n");
@@ -26,10 +27,10 @@ class _splashscreenState extends State<splashscreen> {
       try {
         if (receivedDataList[i]["id"] == null) {
         } else {
-          String date = receivedDataList[i]["date"];
-          String time = receivedDataList[i]["time"];
-          time = time.replaceAll('-', ':');
-          String doc1 = "$date-$time"; 
+          String? date = receivedDataList[i]["date"];
+          String? time = receivedDataList[i]["time"];
+          time = time?.replaceAll('-', ':');
+          String doc1 = "$date-$time";
           await realdata.doc(doc1).set({
             "id": receivedDataList[i]["id"],
             "conductivity": receivedDataList[i]["c"],
@@ -41,11 +42,10 @@ class _splashscreenState extends State<splashscreen> {
             "temperature": receivedDataList[i]["t"],
             "longitude": receivedDataList[i]["longitude"],
             "latitude": receivedDataList[i]["latitude"],
-
           });
         }
       } catch (e) {
-        print("Sajid nahi howa ha add kuch kar ${e}");
+        print("\n\n\n\n\n\n\n\n\n\nSajid nahi howa ha add kuch kar ${e}");
       }
     }
     await (await _localFile).writeAsString('');
@@ -66,7 +66,7 @@ class _splashscreenState extends State<splashscreen> {
       receivedDataList = await readCounter(context);
       adddata();
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => secondmain()));
+          context, MaterialPageRoute(builder: (context) => fourbutton()));
     });
   }
 
@@ -76,19 +76,19 @@ class _splashscreenState extends State<splashscreen> {
             child: Column(
       children: [
         SizedBox(
-          height: 100,
+          height: 190,
         ),
         Container(
-          height: 300,
-          width: 300,
+          height: 200,
+          width: 200,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(300),
               border: Border.all(width: 2, color: Colors.black)),
           child: ClipOval(
             child: Image.asset(
-              ("images/splash.jpg"),
-              height: 350,
-              width: 350,
+              ("assets/icons/icon.png"),
+              height: 200,
+              width: 200,
               fit: BoxFit.cover,
             ),
           ),
@@ -99,8 +99,9 @@ class _splashscreenState extends State<splashscreen> {
         Text(
           "CROP 2X",
           style: TextStyle(
-              color: Color.fromARGB(255, 33, 150, 70),
-              fontSize: 40,
+              // color: Color.fromARGB(255, 33, 150, 70),
+              color: Color.fromARGB(255, 0x00, 0x60, 0x4F),
+              fontSize: 45,
               fontWeight: FontWeight.bold),
         ),
       ],
@@ -119,10 +120,10 @@ Future<String> get _localPath async {
 
 Future<File> get _localFile async {
   final path = await _localPath;
-  return File('$path/data.txt');
+  return File('$path/crop1.txt');
 }
 
-Map<String, dynamic> parseStringToMap(String line) {
+Map<String, String> parseStringToMap(String line) {
   try {
     // Preprocess the line to convert it into valid JSON
     line = line
@@ -132,7 +133,7 @@ Map<String, dynamic> parseStringToMap(String line) {
         .replaceAll('}', '"}');
 
     // Use json.decode to convert the string to a map
-    return json.decode(line);
+    return Map<String, String>.from(json.decode(line));
   } catch (e) {
     // Handle parsing error
     print('Error parsing line: $e');
@@ -140,7 +141,7 @@ Map<String, dynamic> parseStringToMap(String line) {
   }
 }
 
-Future<List<Map<String, dynamic>>> readCounter(BuildContext context) async {
+Future<List<Map<String, String>>> readCounter(BuildContext context) async {
   try {
     final file = await _localFile;
 
@@ -151,13 +152,13 @@ Future<List<Map<String, dynamic>>> readCounter(BuildContext context) async {
     List<String> lines = content.split('\n');
 
     // List to store maps
-    List<Map<String, dynamic>> mapsList = [];
+    List<Map<String, String>> mapsList = [];
 
     // Parse each line into a map
     for (String line in lines) {
       try {
         // Replace this with your actual method to parse a string into a map
-        Map<String, dynamic> map = parseStringToMap(line);
+        Map<String, String> map = parseStringToMap(line);
 
         // Add the map to the list
         mapsList.add(map);

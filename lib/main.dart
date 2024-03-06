@@ -1,8 +1,8 @@
 import 'package:cropx/realtimedevicedata.dart';
-import 'package:cropx/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cropx/connection.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
@@ -32,16 +32,15 @@ class _MyAppState extends State<MyApp> {
     true;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        //  home: splashscreen()
-        // home:LocationScreen(),
-      //  home: MyBluetoothApp()
+      //  home: splashscreen()
+      // home:LocationScreen(),
+      // home: MyBluetoothApp()
       // home:MyBluetoothApp(),
       // home: authentication(),
       // home: home(),
-    //  home: fourbutton(),
-    // home: secondmain(),
-    home:Connection(),
+      //  home: fourbutton(),
+      // home: secondmain(),
+      home: Connection(),
     );
   }
 }
-

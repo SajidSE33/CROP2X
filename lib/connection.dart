@@ -61,7 +61,7 @@ class _ConnectivityState extends State<Connection> {
             ? 'You are connected to Mobile network'
             : 'You are connected to WiFi network'
         : 'You have no internet connection';
-    final color = hasInternet ? Colors.green : Colors.red;
+    final color = hasInternet ? Color.fromARGB(255, 0x00, 0x60, 0x4F) : Colors.red;
     _showSnackbar(context, message, color);
   }
 
